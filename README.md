@@ -1,6 +1,6 @@
 ## 📄 Instruções
 - Faça o `clone` deste repositório, e em seguida, crie uma branch `nome-sobrenome`.
-- Ao finalizar, crie um Pull Request da sua branch com todas as modificações.
+- Ao finalizar, faça o `push` de sua branch para o GitHub com todas as modificações. **Não abra um `Pull Request`**, pois para este propósito não há essa necessidade.
 
 1. Desenvolver página/processo de cadastro das informações do cliente:
     1. Adicionar um botão "Novo" na página de listagem (Home);
