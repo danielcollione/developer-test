@@ -3,26 +3,35 @@ import { Link } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 import api from '../../services/api';
-import { Header, Form, Error, CustomersList } from './styles';
+import { Header, Form, Error, CustomersList, FabButtonSpan } from './styles';
 
-interface Customer {
+import FabButtonAdd from '../../components/fabButtonAdd';
+
+export interface CustomerType {
   id: number;
   firstName: string;
   lastName: string;
   age: number;
   email: string;
+  phone: number;
+  cpf: number;
+  gender: string;
 }
 
 const Customers: React.FC = () => {
   const [searchCustomer, setSearchCustomer] = useState('');
   const [inputError, setInputError] = useState('');
-  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [customers, setCustomers] = useState<CustomerType[]>([]);
 
   useEffect(() => {
+    getCustomers();
+  }, []);
+
+  async function getCustomers() {
     api.get('customers').then((response) => {
       setCustomers(response.data);
     });
-  }, []);
+  }
 
   async function handleAddRepository(
     event: FormEvent<HTMLFormElement>,
@@ -35,8 +44,10 @@ const Customers: React.FC = () => {
     }
 
     try {
-      //TODO:
-      //busca na api os clientes que correspondem com o texto da pesquisa
+      console.log(searchCustomer);
+      api.get(`findcustomers/:${searchCustomer}`).then((response) => {
+        setCustomers(response.data);
+      });
       setInputError('');
     } catch (err) {
       setInputError('Erro na busca por esse repositório');
@@ -47,7 +58,7 @@ const Customers: React.FC = () => {
     <>
       <Header>
         <h1>Lista de clientes:</h1>
-        <Link to="/">
+        <Link onClick={() => getCustomers()} to={'/'}>
           <FiChevronLeft size={16} />
           Voltar
         </Link>
@@ -76,6 +87,12 @@ const Customers: React.FC = () => {
           </Link>
         ))}
       </CustomersList>
+
+      <FabButtonSpan>
+        <Link to={`/customers/${0}`}>
+          <FabButtonAdd />
+        </Link>
+      </FabButtonSpan>
     </>
   );
 };

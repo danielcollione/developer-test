@@ -71,6 +71,13 @@ export const Error = styled.span`
   margin-top: 8px;
 `;
 
+export const FabButtonSpan = styled.span`
+  position: fixed;
+  margin: 50px;
+  bottom: 0;
+  right: 0;
+`;
+
 export const CustomersList = styled.div`
   margin-top: 80px;
 
